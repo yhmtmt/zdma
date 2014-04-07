@@ -1,0 +1,47 @@
+This source code is the linux driver for axi-dma 6.03.a of Xilinx zynq device.
+You can use my interface driver "zdmai".The codes of the driver is mostly from axi-dma driver "xilinx_axidma.c" which is the older driver supplied from xilinx.
+
+For example, this driver requries the following description in device tree source.
+
+		axi_dma_0: axi-dma@40400000 {
+			compatible = "xlnx,axi-dma-6.03.a", "xlnx,axi-dma-1.00.a";
+			interrupt-parent = <&ps7_scugic_0>;
+			interrupts = < 0 58 4 0 57 4 >;
+			reg = < 0x40400000 0x10000 >;
+			xlnx,dlytmr-resolution = <0x7d>;
+			xlnx,enable-multi-channel = <0x0>;
+			xlnx,family = "zynq";
+			xlnx,generic = <0x0>;
+			xlnx,include-mm2s = <0x1>;
+			xlnx,include-mm2s-dre = <0x0>;
+			xlnx,include-mm2s-sf = <0x1>;
+			xlnx,include-s2mm = <0x1>;
+			xlnx,include-s2mm-dre = <0x0>;
+			xlnx,include-s2mm-sf = <0x1>;
+			xlnx,include-sg = <0x1>;
+			xlnx,instance = "axi_dma_0";
+			xlnx,mm2s-burst-size = <0x10>;
+			xlnx,mm2s-data-width = <0x40>;
+			xlnx,num-mm2s-channels = <0x1>;
+			xlnx,num-s2mm-channels = <0x1>;
+			xlnx,prmry-is-aclk-async = <0x0>;
+			xlnx,s2mm-burst-size = <0x10>;
+			xlnx,s2mm-data-width = <0x40>;
+			xlnx,sg-include-desc-queue = <0x1>;
+			xlnx,sg-include-stscntrl-strm = <0x0>;
+			xlnx,sg-length-width = <0xe>;
+			xlnx,sg-use-stsapp-length = <0x1>;
+		} ;
+
+I'm not tested the configuration other than this. So be careful if you configure the parameters of the IP. 
+* Both MM2S and S2MM channels should be enabled.
+* Both of the Store/Forward buffers should be enabled.
+* Scatter gather engine should be enabled.
+* Data realignment engine should be disabled.
+* The data width should be configured as 64bit width. 
+* Scatter Gather descriptor queue should be enabled.
+* Stream control should be disabled.
+If you use petalinux SDK for generating device tree source, you need to hack the tcl script of the SDK first.  Good luck.
+
+Yohei Matsumoto
+Tokyo University of Marine Science and Technology
