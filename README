@@ -33,7 +33,7 @@ For example, this driver requries the following description in device tree sourc
 			xlnx,sg-use-stsapp-length = <0x1>;
 		} ;
 
-I'm not tested the configuration other than this. So be careful if you configure the parameters of the IP. 
+The driver has not been tested configurations other than this. So be careful if you configure the parameters of the IP. 
 * Both MM2S and S2MM channels should be enabled.
 * Both of the Store/Forward buffers should be enabled.
 * Scatter gather engine should be enabled.
